@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 dark:bg-dark-bg dark:text-slate-100 antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100 dark:bg-dark-surface;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-500 rounded-full;
+  }
+
+  ::selection {
+    @apply bg-primary-500/30 text-primary-700 dark:text-primary-300;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .glass-light {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-400 via-purple-400 to-pink-400 bg-clip-text text-transparent;
+    background-size: 300%;
+    animation: gradientX 8s ease infinite;
+  }
+
+  .section-container {
+    @apply py-24 px-4 md:px-8 max-w-7xl mx-auto;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-glow hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border-2 border-primary-500 text-primary-500 dark:text-primary-400 hover:bg-primary-500 hover:text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 px-4 py-2 rounded-lg font-medium transition-all duration-300;
+  }
+
+  .card {
+    @apply bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border rounded-2xl shadow-card dark:shadow-card-dark transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:-translate-y-2 hover:shadow-xl hover:shadow-primary-500/10 dark:hover:shadow-primary-500/20 hover:border-primary-300 dark:hover:border-primary-800;
+  }
+
+  .section-tag {
+    @apply inline-flex items-center gap-2 text-primary-500 font-semibold text-sm uppercase tracking-widest mb-3;
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-slate-500 dark:text-slate-400 max-w-2xl;
+  }
+
+  .input-field {
+    @apply w-full bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-xl px-4 py-3 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300;
+  }
+}
+
+/* Noise texture overlay */
+.noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* Timeline styles */
+.timeline-line::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #6366f1, #a855f7);
+}
+
+/* Skill progress animation */
+.skill-bar-fill {
+  animation: fillBar 1.5s ease-out forwards;
+}
+
+@keyframes fillBar {
+  from { width: 0%; }
+}
+
+/* Glow pulse for active elements */
+.glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(99, 102, 241, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.8); }
+}
+
+/* Loading screen */
+.loading-bar {
+  animation: loadingBar 2s ease-in-out forwards;
+}
+
+@keyframes loadingBar {
+  0% { width: 0%; }
+  30% { width: 40%; }
+  60% { width: 70%; }
+  100% { width: 100%; }
+}
+
+/* Custom cursor */
+.cursor-glow {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(99, 102, 241, 0.6);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  transition: all 0.15s ease;
+  z-index: 9999;
+}
+
+/* Typing cursor */
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: #6366f1;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
