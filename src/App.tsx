@@ -12,7 +12,6 @@ import Experience from './components/sections/Experience'
 import Certificates from './components/sections/Certificates'
 import Resume from './components/sections/Resume'
 import Services from './components/sections/Services'
-import Testimonials from './components/sections/Testimonials'
 import Contact from './components/sections/Contact'
 
 export default function App() {
@@ -37,7 +36,6 @@ export default function App() {
           <Certificates />
           <Resume />
           <Services />
-          <Testimonials />
           <Contact />
         </main>
         <Footer />

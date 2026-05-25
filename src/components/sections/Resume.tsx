@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Download, Eye, FileText, CheckCircle2 } from 'lucide-react'
+import { Eye, FileText, CheckCircle2 } from 'lucide-react'
 import { personalInfo } from '../../data/portfolioData'
 import SectionTitle from '../ui/SectionTitle'
 
@@ -93,11 +93,7 @@ export default function Resume() {
 
             {/* Buttons */}
             <div className="flex flex-wrap gap-3">
-              <a href={personalInfo.resume} download className="btn-primary">
-                <Download size={16} />
-                Download PDF
-              </a>
-              <a
+<a
                 href={personalInfo.resume}
                 target="_blank"
                 rel="noopener noreferrer"

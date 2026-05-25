@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion'
-import { GraduationCap, MapPin, Mail, Calendar, Sparkles } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { GraduationCap, MapPin, Mail, Calendar, Sparkles, X, ZoomIn } from 'lucide-react'
+import { useState } from 'react'
 import { personalInfo } from '../../data/portfolioData'
 import SectionTitle from '../ui/SectionTitle'
 import { useScrollAnimation } from '../../hooks/useScrollAnimation'
@@ -25,6 +26,7 @@ function StatCard({ value, label, suffix }: { value: number; label: string; suff
 export default function About() {
   const { ref: leftRef, inView: leftIn } = useScrollAnimation()
   const { ref: rightRef, inView: rightIn } = useScrollAnimation()
+  const [lightboxOpen, setLightboxOpen] = useState(false)
 
   const info = [
     { icon: Mail, label: 'Email', value: personalInfo.email },
@@ -55,9 +57,29 @@ export default function About() {
             <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-primary-500/10 to-purple-500/10 dark:from-primary-500/20 dark:to-purple-500/20 border border-primary-500/20 p-8">
               {/* Avatar */}
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center shadow-glow text-white text-3xl font-black flex-shrink-0">
-                  {personalInfo.name.charAt(0)}
-                </div>
+                <button
+                  onClick={() => setLightboxOpen(true)}
+                  className="relative w-20 h-20 flex-shrink-0 group focus:outline-none"
+                  aria-label="View profile photo"
+                >
+                  <img
+                    src="/profile.jpg"
+                    alt={personalInfo.name}
+                    className="w-20 h-20 rounded-2xl object-cover shadow-glow cursor-zoom-in"
+                    onError={(e) => {
+                      const target = e.currentTarget
+                      target.style.display = 'none'
+                      const fallback = target.nextElementSibling as HTMLElement
+                      if (fallback) fallback.style.display = 'flex'
+                    }}
+                  />
+                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500 to-purple-600 items-center justify-center shadow-glow text-white text-3xl font-black hidden">
+                    {personalInfo.name.charAt(0)}
+                  </div>
+                  <div className="absolute inset-0 rounded-2xl bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <ZoomIn size={20} className="text-white" />
+                  </div>
+                </button>
                 <div>
                   <h3 className="font-bold text-slate-900 dark:text-white text-lg">{personalInfo.name}</h3>
                   <p className="text-primary-500 text-sm font-medium">{personalInfo.title}</p>
@@ -158,6 +180,42 @@ export default function About() {
           ))}
         </div>
       </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightboxOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            onClick={() => setLightboxOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="relative max-w-lg w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src="/profile.jpg"
+                alt={personalInfo.name}
+                className="w-full rounded-3xl object-cover shadow-2xl"
+              />
+              <button
+                onClick={() => setLightboxOpen(false)}
+                className="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-white dark:bg-dark-card shadow-lg flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                aria-label="Close"
+              >
+                <X size={18} />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
