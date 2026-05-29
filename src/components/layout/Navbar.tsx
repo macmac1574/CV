@@ -12,16 +12,12 @@ export default function Navbar() {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 50)
-
       const sections = navLinks.map(l => l.href.slice(1))
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id)
-        if (el) {
-          const top = el.getBoundingClientRect().top
-          if (top <= 120) {
-            setActive(id)
-            break
-          }
+        if (el && el.getBoundingClientRect().top <= 120) {
+          setActive(id)
+          break
         }
       }
     }
@@ -30,8 +26,7 @@ export default function Navbar() {
   }, [])
 
   const scrollTo = (href: string) => {
-    const el = document.getElementById(href.slice(1))
-    el?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' })
     setMobileOpen(false)
   }
 
@@ -49,10 +44,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
           {/* Logo */}
-          <button
-            onClick={() => scrollTo('#home')}
-            className="flex items-center gap-2 group"
-          >
+          <button onClick={() => scrollTo('#home')} className="flex items-center gap-2 group">
             <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center shadow-glow group-hover:shadow-glow-lg transition-shadow duration-300">
               <Code2 size={18} className="text-white" />
             </div>

@@ -170,3 +170,40 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
+
+/* ── Robot Assistant ── */
+@keyframes robotBlink {
+  0%, 88%, 100% { transform: scaleY(1); }
+  92% { transform: scaleY(0.08); }
+}
+
+@keyframes robotThruster {
+  0%, 100% { opacity: 0.65; transform: scaleX(1); }
+  50%       { opacity: 1;    transform: scaleX(1.35); }
+}
+
+@keyframes robotGlow {
+  0%, 100% { filter: drop-shadow(0 0 4px #6366f1); }
+  50%       { filter: drop-shadow(0 0 10px #a78bfa); }
+}
+
+/* ── Nav Robot Holographic Panel ── */
+@keyframes holoScan {
+  0%   { top: 0%;   opacity: 0.9; }
+  85%  { opacity: 0.7; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes holoGlitch {
+  0%, 88%, 100% { transform: translateX(0);   filter: none; }
+  90%           { transform: translateX(-1px); filter: hue-rotate(60deg); }
+  93%           { transform: translateX(1px);  filter: hue-rotate(-60deg); }
+  96%           { transform: translateX(0);    filter: none; }
+}
+
+/* ── Chatbot robot pulse ring ── */
+@keyframes chatbotPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(99,102,241,0.55); }
+  60%  { box-shadow: 0 0 0 10px rgba(99,102,241,0);   }
+  100% { box-shadow: 0 0 0 0   rgba(99,102,241,0);    }
+}

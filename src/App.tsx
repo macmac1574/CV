@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import LoadingScreen from './components/ui/LoadingScreen'
 import ScrollToTop from './components/ui/ScrollToTop'
+import ChatbotAssistant from './components/ui/ChatbotAssistant'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
 import Skills from './components/sections/Skills'
@@ -40,6 +41,7 @@ export default function App() {
         </main>
         <Footer />
         <ScrollToTop />
+        <ChatbotAssistant />
       </div>
     </ThemeProvider>
   )

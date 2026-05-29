@@ -7,8 +7,6 @@ export const personalInfo = {
     'Full Stack Developer',
     'Mobile App Developer',
     'UI/UX Designer',
-    'Software Engineer',
-    'Information Technology Student',
   ],
   bio: `I'm a passionate Information Technology student and aspiring full-stack developer with a strong foundation in modern web and mobile technologies. I love crafting elegant, user-centric digital experiences that solve real-world problems.`,
   bioExtended: `With hands-on experience in building web and mobile applications, I bring together clean code, creative design thinking, and a drive for continuous learning. I'm committed to delivering high-quality software solutions that make an impact.`,
@@ -19,7 +17,7 @@ export const personalInfo = {
   linkedin: 'https://www.linkedin.com/in/mark-sicad-509305410/',
   instagram: 'https://www.instagram.com/mc_lajada',
   facebook: 'https://www.facebook.com/mark.sicad.98',
-  avatar: '',
+  avatar: '/tp.png',
   resume: '/resume.pdf',
   available: true,
   stats: [
