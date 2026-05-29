@@ -3,6 +3,7 @@ import { TypeAnimation } from 'react-type-animation'
 import { Download, Mail, Eye, Github, Linkedin, MapPin, ArrowDown } from 'lucide-react'
 import { personalInfo } from '../../data/portfolioData'
 import ParticleBackground from '../ui/ParticleBackground'
+import { useTheme } from '../../context/ThemeContext'
 
 const socials = [
   { icon: Github, href: personalInfo.github, label: 'GitHub' },
@@ -13,6 +14,9 @@ const socials = [
 const roleSequence = personalInfo.roles.flatMap(r => [r, 2000])
 
 export default function Hero() {
+  const { isDark } = useTheme()
+  const bgColor = isDark ? '#080810' : '#f8fafc'
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -32,10 +36,28 @@ export default function Hero() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 section-container w-full pt-24 pb-16">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Profile Image — absolutely fills right side */}
+      <motion.div
+        initial={{ opacity: 0, x: 60 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.3, duration: 0.7, ease: 'easeOut' }}
+        className="absolute bottom-0 right-0 w-[50%] xl:w-[46%] 2xl:w-[44%] hidden lg:block pointer-events-none select-none z-10"
+      >
+        <img
+          src={personalInfo.avatar}
+          alt={personalInfo.name}
+          className="w-full h-auto object-contain object-bottom block"
+        />
+        <div
+          className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
+          style={{ background: `linear-gradient(to top, ${bgColor} 0%, ${bgColor}bb 40%, transparent 100%)` }}
+        />
+      </motion.div>
+
+      <div className="relative z-10 section-container w-full pt-24 pb-0">
+        <div className="grid lg:grid-cols-2 gap-12 items-end">
           {/* Left — Text */}
-          <div>
+          <div className="pb-16">
             {/* Availability badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -142,69 +164,8 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right — Avatar / Visual */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              {/* Rotating ring */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                className="absolute -inset-6 rounded-full border-2 border-dashed border-primary-500/30"
-              />
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-                className="absolute -inset-12 rounded-full border border-purple-500/20"
-              />
-
-              {/* Avatar card */}
-              <div className="relative w-72 h-72 md:w-80 md:h-80 rounded-3xl overflow-hidden bg-gradient-to-br from-primary-500/20 to-purple-500/20 dark:from-primary-500/30 dark:to-purple-500/30 border-2 border-primary-500/30 shadow-glow-lg animate-float">
-                {personalInfo.avatar ? (
-                  <img
-                    src={personalInfo.avatar}
-                    alt={personalInfo.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center">
-                    <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center mb-4 shadow-glow">
-                      <span className="text-white text-5xl font-black">
-                        {personalInfo.name.charAt(0)}
-                      </span>
-                    </div>
-                    <p className="text-slate-600 dark:text-slate-300 font-semibold text-sm">
-                      {personalInfo.name}
-                    </p>
-                    <p className="text-primary-500 text-xs mt-1">{personalInfo.title}</p>
-                  </div>
-                )}
-              </div>
-
-              {/* Floating badges */}
-              <motion.div
-                animate={{ y: [-6, 6, -6] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -bottom-4 -left-8 glass dark:bg-dark-card/80 rounded-2xl px-4 py-2.5 shadow-card-dark border border-white/10"
-              >
-                <p className="text-xs text-slate-500 dark:text-slate-400">Experience</p>
-                <p className="text-white font-bold text-sm">3+ Years</p>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [6, -6, 6] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-4 -right-8 glass dark:bg-dark-card/80 rounded-2xl px-4 py-2.5 shadow-card-dark border border-white/10"
-              >
-                <p className="text-xs text-slate-500 dark:text-slate-400">Projects</p>
-                <p className="text-white font-bold text-sm">24+ Done</p>
-              </motion.div>
-            </div>
-          </motion.div>
+          {/* Right column spacer — image is absolutely positioned above */}
+          <div className="hidden lg:block" />
         </div>
 
         {/* Scroll indicator */}
