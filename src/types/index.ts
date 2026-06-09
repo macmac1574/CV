@@ -34,6 +34,7 @@ export interface Certificate {
   date: string
   image: string
   credentialUrl?: string
+  skeleton?: boolean
 }
 
 export interface Service {
