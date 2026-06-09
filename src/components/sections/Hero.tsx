@@ -36,28 +36,10 @@ export default function Hero() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-3xl" />
       </div>
 
-      {/* Profile Image — absolutely fills right side */}
-      <motion.div
-        initial={{ opacity: 0, x: 60 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.3, duration: 0.7, ease: 'easeOut' }}
-        className="absolute bottom-0 right-0 w-[50%] xl:w-[46%] 2xl:w-[44%] hidden lg:block pointer-events-none select-none z-10"
-      >
-        <img
-          src={personalInfo.avatar}
-          alt={personalInfo.name}
-          className="w-full h-auto object-contain object-bottom block"
-        />
-        <div
-          className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
-          style={{ background: `linear-gradient(to top, ${bgColor} 0%, ${bgColor}bb 40%, transparent 100%)` }}
-        />
-      </motion.div>
-
       <div className="relative z-10 section-container w-full pt-24 pb-0">
-        <div className="grid lg:grid-cols-2 gap-12 items-end">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[600px] lg:min-h-auto">
           {/* Left — Text */}
-          <div className="pb-16">
+          <div className="pb-16 lg:pb-0">
             {/* Availability badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -164,8 +146,32 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right column spacer — image is absolutely positioned above */}
-          <div className="hidden lg:block" />
+          {/* Right — Avatar Image */}
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3, duration: 0.7, ease: 'easeOut' }}
+            className="hidden lg:flex items-center justify-center relative"
+          >
+            <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
+              {/* Background glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-purple-500/20 rounded-3xl blur-2xl" />
+              
+              {/* Avatar container */}
+              <div className="relative w-full h-full rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl">
+                <img
+                  src={personalInfo.avatar}
+                  alt={personalInfo.name}
+                  className="w-full h-full object-cover object-center"
+                />
+                {/* Gradient overlay */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{ background: `linear-gradient(135deg, transparent 0%, ${bgColor}30 100%)` }}
+                />
+              </div>
+            </div>
+          </motion.div>
         </div>
 
         {/* Scroll indicator */}
